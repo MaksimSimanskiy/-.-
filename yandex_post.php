@@ -175,69 +175,69 @@ $headers = "";
 $stav = array('Ставрополь/Михайловск', 'Ставрополь', 'ставрополь', 'Михайловск','михайловск');
 $kmv = array("Минеральные Воды", "Железноводск", "Кисловодск", "Пятигорск","Ессентуки","Георгиевск");
 if (in_array($city , $kmv)) {
-    $work_rule = "4819c73ba05945679cd42912dc5e4777";
+    $work_rule = "";
     //$end = "Location:../endpagego.php";
     $end = "Location:ins/ИнструкцияГО.pdf";
     $headers = array(
-        'X-Client-ID: taxi/park/9cb05b8548b24e7b8f1ba1e9d478d9a8',
-        'X-API-Key: aptxszjctvqiXvAGoHuLNjRPUFipfegG',
-        'X-Park-ID: 9cb05b8548b24e7b8f1ba1e9d478d9a8',
+        'X-Client-ID: taxi/park/',
+        'X-API-Key: ',
+        'X-Park-ID: ',
         'X-Idempotency-Token: '.v4_UUID(),
         'Content-Type: text/plain'
     );
-    $park_id = '9cb05b8548b24e7b8f1ba1e9d478d9a8';
+    $park_id = '';
 }
 else if($city == 'Краснодар'){
-    $work_rule = "9ccdfb2cffaf41929fa1a896bb225cb3";
+    $work_rule = "";
     //$end = "Location:../endpagecc.php";
     $end = "Location:ins/ИнструкцияЦентрКурьеровКраснодар.pdf";
     $headers = array(
-        'X-Client-ID: taxi/park/2ee4ba7f185f4ae28183ca298b8886e6',
-        'X-API-Key: zbGurSoCSUvKhuBLGWJQTOMQJujLRfiIaocam',
-        'X-Park-ID: 2ee4ba7f185f4ae28183ca298b8886e6',
+        'X-Client-ID: taxi/park/',
+        'X-API-Key: ',
+        'X-Park-ID: ',
         'X-Idempotency-Token: '.v4_UUID(),
         'Content-Type: text/plain'
     );
-    $park_id = '2ee4ba7f185f4ae28183ca298b8886e6';
+    $park_id = '';
 }
 else if(in_array($city , $stav)){
-    $work_rule = "1b8d9dfc1b154d3eb7b8e95fd635580e";
+    $work_rule = "";
     //$end = "Location:../endpagecd.php";
     $end = "Location:ins/ИнструкцияЦентрДоставкиСтав.pdf";
     $headers = array(
-        'X-Client-ID: taxi/park/6f3eb4bc6c574fe586fc86b1aa2b7e7c',
-        'X-API-Key: kYOIbaGgDRAfMJnrgjUeDFYzJJfSZJDSMkH',
-        'X-Park-ID: 6f3eb4bc6c574fe586fc86b1aa2b7e7c',
+        'X-Client-ID: taxi/park/',
+        'X-API-Key: ',
+        'X-Park-ID: ',
         'X-Idempotency-Token: '.v4_UUID(),
         'Content-Type: text/plain'
     );
-    $park_id = '6f3eb4bc6c574fe586fc86b1aa2b7e7c';
+    $park_id = '';
 }
 else {
-    $work_rule = "e95bfb3da09c4882a399a011629a6d05";
-    //$end = "Location:../endpage.php";
+    $work_rule = "";
+    
     $end = "Location:ins/ИнструкцияБогатей.pdf";
     $headers = array(
-        'X-Client-ID: taxi/park/6a3124c0d5b74e75a24d85e279bfaad6',
-        'X-API-Key: htyXBccEPdVURRgjBhCHuRnFXvHexHJXgj',
-        'X-Park-ID: 6a3124c0d5b74e75a24d85e279bfaad6',
+        'X-Client-ID: taxi/park/',
+        'X-API-Key: ',
+        'X-Park-ID: ',
         'X-Idempotency-Token: '.v4_UUID(),
         'Content-Type: text/plain'
     );
-    $park_id = '6a3124c0d5b74e75a24d85e279bfaad6';
+    $park_id = '';
 };
 if($working == "Водителем такси"){
-    $work_rule = "04da4e1d86f541b38616db15700c8fc8";
+    $work_rule = "";
     //$end = "Location:../endpagetaxi.php";
     $end = "Location:ins/ИнструкцияТакси.pdf";
     $headers = array(
-        'X-Client-ID: taxi/park/2e7101221f7b41e783a7d5a320bfd044 ',
-        'X-API-Key: oIDgagaXABBCqjwCndlUouCdKlFDsAuasLedYky',
-        'X-Park-ID: 2e7101221f7b41e783a7d5a320bfd044',
+        'X-Client-ID: taxi/park/ ',
+        'X-API-Key: ',
+        'X-Park-ID: ',
         'X-Idempotency-Token: '.v4_UUID(),
         'Content-Type: text/plain'
     );
-    $park_id = '2e7101221f7b41e783a7d5a320bfd044';
+    $park_id = '';
 };
 
 function backup($arr,$resp){
