@@ -93,15 +93,7 @@ function onecall($num,$db,$dialplan) {
 	    require_once 'common_note.php';
 	    exit('Уже звонили');
 	};
-    $strHost = "94.228.114.20"; #адрес сервера asterisk
-    $strUser = "callback"; #логин для подключения к ami
-    $strSecret = "m@ks1999"; 
-    $strChannel = "SIP/megafon"; 
-    $strWaitTime = "30";
-    $strPriority = "1";
-    $strMaxRetry = "3";
-    $strExten = $number;
-    require_once 'rec.php';
+
     #specify the caller id for the call
     $strCallerId = "Web Call <$strExten>";
     $length = strlen($strExten);
