@@ -65,7 +65,6 @@ require_once 'access.php';
 
 
 $utm_source   = 'Штатник';
-$utm_content  = $custom_field_value2;
 $utm_medium   = '';
 $utm_term     = '';
 $data = [
@@ -283,12 +282,8 @@ function execute($id_park,$api,$status_id,$company,$work_rule,$subdomain,$access
     CURLOPT_HTTPHEADER => $headers_ya,
     ));
     $resp = curl_exec($curl);
-    echo $resp."/n/n";
    $data = json_decode($resp, true);
-
 // Создание нового массива для хранения значений "id"
-
-
 
 $modified_driver_profiles = [];
 
