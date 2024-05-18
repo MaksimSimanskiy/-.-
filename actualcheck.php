@@ -1,6 +1,6 @@
 <?php
 require_once 'access.php';
-sleep(mt_rand(1, 10));
+
 $id = serialize($_POST);
 preg_match('/([0-9]{7,8}+)/', $id, $matches);
 $id = $matches[0];
@@ -39,16 +39,9 @@ if (strlen($matches[0]) > 8)
 {
     //preg_match('/\+?([0-9]{11}+)/', $Response,$matches);
     $number = $matches[0];
-    $strHost = "94.228.114.20"; #адрес сервера asterisk
-    $strUser = "callback"; #логин для подключения к ami
-    $strSecret = "m@ks1999";
-    $strChannel = "SIP/megafon";
-    $strWaitTime = "30";
-    $strPriority = "1";
-    $strMaxRetry = "3";
-    $strExten = $number;
+    
     #specify the caller id for the call
-    $strCallerId = "Web Call <$strExten>";
+    $strCallerId = "Web Call <$number>";
     $length = strlen($strExten);
     $oSocket = fsockopen($strHost, 5038, $errnum, $errstr, 10);
     fputs($oSocket, "Action: Login\r\n");
@@ -57,20 +50,11 @@ if (strlen($matches[0]) > 8)
     fputs($oSocket, "CallerId: $strCallerId\r\n");
     fputs($oSocket, "Secret: $strSecret\r\n\r\n");
     fputs($oSocket, "Action: Command\r\n");
-    fputs($oSocket, "Command: channel originate SIP/megafon/$strExten extension $id@alisa_avto_act \r\n");
+    fputs($oSocket, "Command: channel originate SIP/megafon/$number extension $id@alisa_avto_act \r\n");
 
     fputs($oSocket, "Action: Logoff\r\n\r\n");
     fclose($oSocket);
 
-    backup($number);
-    $filename = 'actual.txt';
-
-    $text = file_get_contents($filename);
-    $nedo = substr_count($text, $number);
-    $nedotag = "Недозвон" . $nedo;
-    $count_calls = 4;
-    $nedonum = "ПятьЗвонков";
-    require_once 'patch.php';
     require_once 'note.php';
 };
 
