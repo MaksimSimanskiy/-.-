@@ -216,13 +216,10 @@ function gruz_make($error_message, $cargo, $gruz_profile, $vehicle_licenses, $ve
     $response = curl_exec($curl);
     $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $code = (int)$code;
-
     $output = json_decode($response, true);
     curl_close($curl);
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
-
-    
     $contractor = json_decode($response)->vehicle_id;
     return $contractor;
 };
@@ -230,7 +227,6 @@ function gruz_make($error_message, $cargo, $gruz_profile, $vehicle_licenses, $ve
 function avto_courier_make($error_message, $car_id, $account, $order_provider, $person, $profile, $work_rule, $avto_courier, $headers)
 {
     $data = ["account" => $account, "car_id" => $car_id, "order_provider" => $order_provider, "person" => $person, "profile" => $profile];
-
     $curl = curl_init();
     curl_setopt_array($curl, array(
         CURLOPT_URL => $avto_courier,
@@ -247,12 +243,10 @@ function avto_courier_make($error_message, $car_id, $account, $order_provider, $
     $response = curl_exec($curl);
     $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $code = (int)$code;
-
     $output = json_decode($response, true);
     curl_close($curl);
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
-
     $contractor = json_decode($response)->contractor_profile_id;;
     return $contractor;
 };
@@ -277,12 +271,10 @@ function avto_driver_make($error_message, $car_id, $account, $order_provider, $p
     $response = curl_exec($curl);
     $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $code = (int)$code;
-
     $output = json_decode($response, true);
     curl_close($curl);
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
-
     $contractor = json_decode($response)->contractor_profile_id;;
     return $contractor;
 };
@@ -307,12 +299,10 @@ function moto_make($error_message, $moto_park_profile, $moto_licenses, $moto_spe
     $response = curl_exec($curl);
     $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $code = (int)$code;
-
     $output = json_decode($response, true);
     curl_close($curl);
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
-
     $contractor = json_decode($response)->vehicle_id;
     return $contractor;
 };
@@ -337,12 +327,10 @@ function moto_courier_make($error_message, $car_id, $account, $order_provider, $
     $response = curl_exec($curl);
     $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     $code = (int)$code;
-
     $output = json_decode($response, true);
     curl_close($curl);
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
-
     $contractor = json_decode($response)->contractor_profile_id;
     return $contractor;
 };
@@ -352,35 +340,25 @@ if (isset($_POST))
     if ($working == 'Курьером на авто')
     {
         $car_id = car_make($error_message, $park_profile, $vehicle_licenses, $vehicle_specifications, $work_rule, $car, $headers);
-        sleep(1);
         $contractor = avto_courier_make($error_message, $car_id, $account, $order_provider, $person, $profile, $work_rule, $avto_courier, $headers);
-        $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
     };
     if ($working == 'Пешим курьером')
     {
 
         $contractor = walk_make($error_message, $city, $dateb, $first_name, $last_name, $middle_name, $phone, $work_rule, $walk, $headers);
-        sleep(1);
-        $car_id = $contractor;
-        $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
-        //$contractor = "Пешим курьером";
-        
+        $car_id = $contractor;        
     };
     if ($working == 'Курьером на велосипеде/самокате')
     {
 
         $contractor = walk_make($error_message, $city, $dateb, $first_name, $last_name, $middle_name, $phone, $work_rule, $walk, $headers);
-        sleep(1);
         $car_id = $contractor;
-        $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
     };
     if ($working == 'Курьером на грузовом авто')
     {
 
         $car_id = gruz_make($error_message, $cargo, $gruz_profile, $vehicle_licenses, $vehicle_specifications, $work_rule, $car, $headers);
-        sleep(1);
         $contractor = avto_courier_make($error_message, $car_id, $account, $order_provider, $person, $profile, $work_rule, $avto_courier, $headers);
-        $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
     };
     if ($working == 'Мотокурьером(мотоцикл/скутер)')
     {
@@ -393,17 +371,13 @@ if (isset($_POST))
         else
         {
             $car_id = moto_make($error_message, $moto_park_profile, $moto_licenses, $moto_specifications, $work_rule, $car, $headers);
-            sleep(1);
             $contractor = moto_courier_make($error_message, $car_id, $account, $order_provider, $moto_person, $profile, $work_rule, $avto_courier, $headers);
-            $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
         };
     };
     if ($working == 'Водителем такси')
     {
         $car_id = taxi_make($error_message, $taxi_profile, $vehicle_licenses, $vehicle_specifications, $work_rule, $car, $headers);
-        sleep(1);
         $contractor = avto_driver_make($error_message, $car_id, $account, $order_provider, $person, $profile, $work_rule, $taxi, $headers);
-        $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
     };
 };
 $url = "https://fleet.yandex.ru/contractors/$contractor/details?park_id=$park_id";
