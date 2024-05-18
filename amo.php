@@ -19,9 +19,9 @@ if ($contractor == 'duplicate_phone')
 
 $name = $_POST['fame'] . ' ' . $_POST['name'] . ' ' . $_POST['otc'];
 $phone = $_POST['number'];
-$custom_field_value = $_POST['cityname'];
-$custom_field_value2 = $_POST['working'];
-$custom_field_value3 = $_POST['dateb'];
+$cityname = $_POST['cityname'];
+$working = $_POST['working'];
+$dateb = $_POST['dateb'];
 $target = 'Заполнили форму';
 $company = $_POST['feed'];
 if ($company == "По рекомендации")
@@ -36,24 +36,116 @@ if ($len = strlen($company) < 3)
 {
     $company = "Не указано";
 };
-$custom_field_id = 548461;
-
-$custom_field_id2 = 284265;
-
-$custom_field_id3 = 548467;
-
 
 $pipeline_id = 6107622;
 $user_amo = 8887046;
 $status_id = 52897606;
 
 $utm_source = 'Интеграция';
-$utm_content = $custom_field_value2;
 $utm_medium = $contractor;
 $utm_campaign = $_POST['otc'];
 $utm_term = '';
 $utm_referrer = $_POST['refer'];
-$data = [["name" => $name, "status_id" => $status_id, "responsible_user_id" => (int)$user_amo, "created_at" => strtotime(date("Y-m-d H:i:s")) , "pipeline_id" => (int)$pipeline_id, "_embedded" => ["contacts" => [["first_name" => $name, "custom_fields_values" => [["field_code" => "PHONE", "values" => [["enum_code" => "WORK", "value" => $phone]]], ["field_id" => (int)$custom_field_id, "values" => [["value" => $custom_field_value]]], ["field_id" => 284265, "values" => [["value" => $custom_field_value2]]], ["field_id" => 995453, "values" => [["value" => $url]]], ["field_id" => 548467, "values" => [["value" => $custom_field_value3]]], ["field_id" => 548463, "values" => [["value" => $name]]], ["field_id" => 1019301, "values" => [["value" => $custom_field_value4]]]]]], "companies" => [["name" => $company]]], "custom_fields_values" => [["field_code" => 'UTM_SOURCE', "values" => [["value" => $utm_source]]], ["field_code" => 'UTM_CONTENT', "values" => [["value" => $utm_content]]], ["field_code" => 'UTM_MEDIUM', "values" => [["value" => $utm_medium]]], ["field_code" => 'UTM_CAMPAIGN', "values" => [["value" => $utm_campaign]]], ["field_code" => 'UTM_TERM', "values" => [["value" => $utm_term]]], ["field_code" => 'UTM_REFERRER', "values" => [["value" => $utm_referrer]]], ], ]];
+$data = [
+    [
+        "name" => $name,
+        "status_id"=> $status_id,
+        "responsible_user_id" => (int) $user_amo,
+        "created_at" => strtotime(date("Y-m-d H:i:s")),
+        "pipeline_id" => (int) $pipeline_id,
+        "_embedded" => [
+            "contacts" => [
+                [
+                    "first_name" => $name,
+                    "custom_fields_values" => [
+                        [
+                            "field_code" => "PHONE",
+                            "values" => [
+                                [
+                                    "enum_code" => "WORK",
+                                    "value" => $phone
+                                ]
+                            ]
+                        ],
+                                                [
+                            "field_id" => 995453,
+                            "values" => [
+                                [
+                                    "value" => $url
+                                ]
+                            ]
+                        ],
+
+                        [
+                            "field_id" => 548463,
+                            "values" => [
+                                [
+                                    "value" => $name
+                                ]
+                            ]
+                        ],
+
+                    ]
+                ]    
+            ],
+            "companies" => [
+                [
+                    "name" => $company
+                ]
+            ]
+        ],
+        "custom_fields_values" => [
+            [
+                "field_code" => 'UTM_SOURCE',
+                "values" => [
+                    [
+                        "value" => $utm_source
+                    ]
+                ]
+            ],
+            [
+                "field_code" => 'UTM_CONTENT',
+                "values" => [
+                    [
+                        "value" => $utm_content
+                    ]
+                ]
+            ],
+            [
+                "field_code" => 'UTM_MEDIUM',
+                "values" => [
+                    [
+                        "value" => $utm_medium
+                    ]
+                ]
+            ],
+            [
+                "field_code" => 'UTM_CAMPAIGN',
+                "values" => [
+                    [
+                        "value" => $utm_campaign
+                    ]
+                ]
+            ],
+            [
+                "field_code" => 'UTM_TERM',
+                "values" => [
+                    [
+                        "value" => $utm_term
+                    ]
+                ]
+            ],
+            [
+                "field_code" => 'UTM_REFERRER',
+                "values" => [
+                    [
+                        "value" => $utm_referrer
+                    ]
+                ]
+            ],
+        ],
+    ]
+];
 $method = "/api/v4/leads/complex";
 
 $headers = ['Content-Type: application/json', 'Authorization: Bearer ' . $access_token, ];
