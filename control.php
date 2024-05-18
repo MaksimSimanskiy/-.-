@@ -48,7 +48,30 @@ function v4_UUID()
 };
 $from = date('c', time() - 604800);
 $to = date('c', time());
-$data = ["limit" => 30, "query" => ["park" => ["driver_profile" => ["id" => $id_vod, ], "id" => $id_park, "order" => ["ended_at" => ["from" => $from, "to" => $to], "statuses" => ["complete"], ]]]];
+$data = [
+    [
+        "pipeline_id" => $pipeline,
+        'status_id' => 55305830,
+        "id" => (int)$id,
+        "_embedded" => [
+            "tags" =>[
+                [
+                    "name" => "ВышелНаЛинию"
+                ]
+            ],
+        ],
+        "custom_fields_values" => [
+            [
+                "field_code" => 'UTM_SOURCE',
+                "values" => [
+                    [
+                        "value" => "Автопроверка"
+                    ]
+                ]
+            ]
+       ] 
+    ]
+];
 $headers_ya = array(
     "X-Client-ID: taxi/park/$id_park",
     "X-API-Key: $api",
