@@ -42,8 +42,7 @@ $custom_field_id2 = 284265;
 
 $custom_field_id3 = 548467;
 
-$ip = '1.2.3.4';
-$domain = 'site.ua';
+
 $pipeline_id = 6107622;
 $user_amo = 8887046;
 $status_id = 52897606;
@@ -58,7 +57,7 @@ $data = [["name" => $name, "status_id" => $status_id, "responsible_user_id" => (
 $method = "/api/v4/leads/complex";
 
 $headers = ['Content-Type: application/json', 'Authorization: Bearer ' . $access_token, ];
-echo json_encode($data);
+
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($curl, CURLOPT_USERAGENT, 'amoCRM-API-client/1.0');
