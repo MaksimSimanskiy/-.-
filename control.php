@@ -1,6 +1,5 @@
 <?php
 require_once 'access.php';
-sleep(mt_rand(1, 20));
 $id = serialize($_POST);
 preg_match('/([0-9]{7,8}+)/', $id, $matches);
 $id = $matches[0];
@@ -42,27 +41,6 @@ preg_match_all('/[a-z0-9]{32}/', $Response, $matches, PREG_SET_ORDER);
 
 $id_vod = $matches[0][0];
 $id_park = $matches[1][0];
-$api = "";
-if ($id_park == "6a3124c0d5b74e75a24d85e279bfaad6")
-{
-    $api = "KLgMxNKIJWDtbYhAEfUXqyRRjuVeOWHiVDT";
-};
-if ($id_park == "9cb05b8548b24e7b8f1ba1e9d478d9a8")
-{
-    $api = "WtgebpJXvGpFjpdijgcPHmebgphSUhcHkbRrbXM";
-};
-if ($id_park == "2e7101221f7b41e783a7d5a320bfd044")
-{
-    $api = "GiiidwniHyaSDkoJVJbuNBIztVoHUYNfiVOVeFyC";
-};
-if ($id_park == "6f3eb4bc6c574fe586fc86b1aa2b7e7c")
-{
-    $api = "LBOFSdnoLUywjCFIVlynVywLDePyaaPn";
-};
-if ($id_park == "2ee4ba7f185f4ae28183ca298b8886e6")
-{
-    $api = "eocElbEecmEPAGuWXGsMlWNBnYJGtVypTpN";
-};
 
 function v4_UUID()
 {
