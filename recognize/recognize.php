@@ -27,7 +27,6 @@ WHERE lid = '$num' AND LOWER(status) = LOWER('недозвон') AND dialplan = 
 
     //pg_close($db);
     };
-    $db = pg_connect("host=pg3.sweb.ru dbname=maksimsima user=maksimsima password=Maks1999");
     $numnedozvon = onecall($context,$id,$db);
     if($context == "dialer"){
 if ($tag == 'yes') {$tag = "АктуальноСейчас";$status = 52897594;};
@@ -94,9 +93,7 @@ if ($tag == '') {$tag = "Промолчал";$status = "";};
     };
 $data = [
     [
-        //"responsible_user_id" => (int) $user_amo,
-        //"created_at" => strtotime(date("Y-m-d H:i:s")),
-        //"pipeline_id" => (int) $pipeline_id,
+        
         "status_id" => (int)$status,
         "id" => (int)$id,
         "_embedded" => [
@@ -123,7 +120,6 @@ function callstatus($auto,$status, $lid) {
     if ($auto == 'auto') {
         $status = "недозвон";
     };
-    $db = pg_connect("host=pg3.sweb.ru dbname=maksimsima user=maksimsima password=Maks1999"); // Укажите свои данные для подключения к базе данных
 
 if (!$db) {
         die("Error connecting to database");
@@ -171,5 +167,3 @@ $errors = [
     503 => 'Amo Service unavailable.'
 ];
 require_once 'taskcall.php';
-
-//echo array_values($Response)[0]['id'];
