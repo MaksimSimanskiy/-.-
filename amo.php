@@ -37,10 +37,7 @@ if ($len = strlen($company) < 3)
     $company = "Не указано";
 };
 
-$pipeline_id = 6107622;
-$user_amo = 8887046;
 $status_id = 52897606;
-
 $utm_source = 'Интеграция';
 $utm_medium = $contractor;
 $utm_campaign = $_POST['otc'];
