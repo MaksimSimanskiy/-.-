@@ -2,11 +2,6 @@
 require_once 'access.php';
 $id = $_POST['number'];
 $data = [
-    
-        //"responsible_user_id" => (int) $user_amo,
-        //"created_at" => strtotime(date("Y-m-d H:i:s")),
-        //"pipeline_id" => (int) $pipeline_id,
-        //'status_id' => (int)$status,
         [
         "responsible_user_id" => $responsible_user_id,
         "task_type_id" => $task_type_id,
@@ -14,9 +9,7 @@ $data = [
         "complete_till"=> strtotime(date("Y-m-d H:i:s")) + 7200,
         "entity_id"=> (int)$id,
         "entity_type"=> "leads"
-    ]
-            
-    
+    ]    
 ];
 $method = "/api/v4/tasks";
 
