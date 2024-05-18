@@ -8,8 +8,8 @@ $data = [
         //"pipeline_id" => (int) $pipeline_id,
         //'status_id' => (int)$status,
         [
-        "responsible_user_id" => 8887046,
-        "task_type_id" => 2797514,
+        "responsible_user_id" => $responsible_user_id,
+        "task_type_id" => $task_type_id,
         "text" => "Клиент после обзвона, есть какие то вопросы",
         "complete_till"=> strtotime(date("Y-m-d H:i:s")) + 7200,
         "entity_id"=> (int)$id,
