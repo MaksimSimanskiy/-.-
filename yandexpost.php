@@ -38,44 +38,129 @@ if ($working == 'Курьером на велосипеде/самокате')
 };
 $iso_date = date('Y-m-d');
 //поля для водителя
-$order_provider = ["partner" => false, "platform" => true];
-$person = ["contact_info" => ["address" => $city, "phone" => $phone], "driver_license" => ["birth_date" => $dateb, "country" => "rus", "expiry_date" => $vu_do, "issue_date" => $data_vu, "number" => $doc], "full_name" => ["first_name" => $first_name, "last_name" => $last_name, "middle_name" => $middle_name]];
-$profile = ["hire_date" => $iso_date];
-$cargo = ["cargo_hold_dimensions" => ["height" => $visota, "length" => $dlina, "width" => $shirina], "cargo_loaders" => 1, "carrying_capacity" => $ves];
-$park_profile = ["callsign" => $gos_nom, "categories" => ["express"], "is_park_property" => false, "status" => "working"];
-$gruz_profile = ["callsign" => $gos_nom, "categories" => ["cargo"], "is_park_property" => false, "status" => "working"];
-$taxi_profile = ["callsign" => $gos_nom, "categories" => ["econom", "comfort", "express"], "is_park_property" => false, "status" => "working"];
-$vehicle_licenses = ["licence_plate_number" => $gos_nom, "registration_certificate" => $sts];
-$vehicle_specifications = ["brand" => $mode, "color" => $color_avto, "model" => $marka, "transmission" => "unknown", "vin" => $vin, "year" => $god_vip];
-
-function moto_doc($doc, $phone)
-{
-    $moto_docs = ' ';
-    if ($doc == '')
-    {
+$order_provider = [
+      "partner" => false,
+      "platform"=> true
+    ];
+    $person = [
+      "contact_info" => [
+        "address"=> $city,
+        "phone"=> $phone
+      ],
+      "driver_license"=> [
+        "birth_date"=> $dateb,
+        "country"=> "rus",
+        "expiry_date"=>$vu_do ,
+        "issue_date"=> $data_vu,
+        "number"=> $doc
+      ],
+      "full_name" =>[
+        "first_name"=>$first_name,
+        "last_name"=>$last_name ,
+        "middle_name"=>$middle_name
+      ]
+    ];
+    $profile = [
+      "hire_date"=> $iso_date
+    ];
+    $cargo = [
+      "cargo_hold_dimensions"=> [
+        "height"=> $visota ,
+        "length"=> $dlina,
+        "width"=> $shirina
+      ],
+      "cargo_loaders" => 1,
+      "carrying_capacity"=>$ves
+    ];
+    $park_profile = [
+      "callsign"=> $gos_nom,
+      "categories" => ["express"],
+      "is_park_property"=> false,
+      "status"=> "working"
+    ];
+    $gruz_profile = [
+      "callsign"=> $gos_nom,
+      "categories" => ["cargo"],
+      "is_park_property"=> false,
+      "status"=> "working"
+    ];
+    $taxi_profile = [
+      "callsign"=> $gos_nom,
+      "categories" => ["econom","comfort","express"],
+      "is_park_property"=> false,
+      "status"=> "working"
+    ];
+    $vehicle_licenses = [
+      "licence_plate_number"=> $gos_nom,
+      "registration_certificate" => $sts
+    ];
+    $vehicle_specifications = [
+      "brand"=>$mode,
+      "color"=>$color_avto,
+      "model"=>$marka,
+      "transmission"=>"unknown",
+      "vin"=>$vin,
+      "year"=>$god_vip
+    ];
+    
+    function moto_doc($doc,$phone){
+      $moto_docs = ' ';
+      if($doc == ''){
         $moto_docs = mb_substr($phone, 6);
         $moto_docs = "AA" . $moto_docs;
-    }
-    else
-    {
+      }
+      else{
         $moto_docs = $doc;
-    }
-    return $moto_docs;
-};
-function moto_sign($phone)
-{
-    $moto_docs = ' ';
-    $moto_docs = mb_substr($phone, 6);
-    $moto_docs = "AA" . $moto_docs;
-    return $moto_docs;
-};
-$moto_specifications = ["brand" => "Bike", "color" => 'Черный', "model" => "Courier", "transmission" => "unknown", "vin" => "00000000000000000", "year" => 2021];
+      }
+      return $moto_docs;
+    };
+    function moto_sign($phone){
+        $moto_docs = ' ';
+        $moto_docs = mb_substr($phone, 6);
+        $moto_docs = "AA" . $moto_docs;
+        return $moto_docs;
+    };
+    $moto_specifications = [
+      "brand"=>"Bike",
+      "color"=>'Черный',
+      "model"=>"Courier",
+      "transmission"=>"unknown",
+      "vin"=>"00000000000000000",
+      "year"=>2021
+    ];
+    
+    $moto_park_profile = [
+      "callsign"=> moto_sign($phone),
+      "categories" => ["express"],
+      "is_park_property"=> false,
+      "status"=> "working"
+    ];
+    
+    $moto_licenses = [
+      "licence_plate_number"=> "АА" . mb_substr($phone, 6),
+      "registration_certificate" => "0000000000"
+    ];
+    
+    $moto_person = [
+      "contact_info"=> [
+        "address"=> $city,
+        "phone"=> $phone
+      ],
+      "driver_license"=> [
+        "birth_date"=> $dateb,
+        "country"=> "rus",
+        "expiry_date"=> "2031-01-01",
+        "issue_date"=> "2021-01-01",
+        "number"=> moto_doc($doc,$phone)
+      ],
+      "full_name"=>[
+        "first_name"=>$first_name,
+        "last_name"=>$last_name ,
+        "middle_name"=>$middle_name
+      ]
+    ];
 
-$moto_park_profile = ["callsign" => moto_sign($phone) , "categories" => ["express"], "is_park_property" => false, "status" => "working"];
 
-$moto_licenses = ["licence_plate_number" => "АА" . mb_substr($phone, 6) , "registration_certificate" => "0000000000"];
-
-$moto_person = ["contact_info" => ["address" => $city, "phone" => $phone], "driver_license" => ["birth_date" => $dateb, "country" => "rus", "expiry_date" => "2031-01-01", "issue_date" => "2021-01-01", "number" => moto_doc($doc, $phone) ], "full_name" => ["first_name" => $first_name, "last_name" => $last_name, "middle_name" => $middle_name]];
 function v4_UUID()
 {
     return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -92,7 +177,6 @@ function v4_UUID()
     // 48 bits for the node
     mt_rand(0, 0xffff) , mt_rand(0, 0xffff) , mt_rand(0, 0xffff));
 };
-$work_rule = "";
 $end = "Location:../endpage.php";
 $headers = array(
         "X-Client-ID: $client_id",
