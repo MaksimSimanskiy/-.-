@@ -1,6 +1,5 @@
 <?php 
 require_once 'access.php';
-    $db = pg_connect("host=pg3.sweb.ru dbname=maksimsima user=maksimsima password=Maks1999"); // Укажите свои данные для подключения к базе данных
     $dialplan = $_GET['dialplan'];
 function onecall($num,$db,$dialplan) {
     $query = "SELECT COUNT(*) AS count FROM telephone WHERE phone = '$num' AND dialplan = '$dialplan'";
@@ -25,11 +24,7 @@ function onecall($num,$db,$dialplan) {
     preg_match('/([0-9]{7,8}+)/',$id,$matches);
     $id = $matches[0];
     echo $id;
-    //if(isset($_POST['leads']['add'][0]['id'])) {
-    //$id = $_POST['leads']['add'][0]['id'];
-    //echo $id;
-    //};
- // Вывод значения id
+
 	$headers = [
 		"Accept: application/json",
 		'Authorization: Bearer ' . $access_token,
@@ -50,7 +45,6 @@ function onecall($num,$db,$dialplan) {
 	$code=curl_getinfo($curl,CURLINFO_HTTP_CODE);
 	curl_close($curl);
 	$Response=json_decode($out,true);
-//	$Response=json_decode($out,true)-> ;
 	$contact_id = $Response['_embedded']['contacts'][0]['id'];
 	$una = serialize($Response);
 	$link="https://$subdomain.amocrm.ru/api/v4/contacts/$contact_id";
@@ -90,7 +84,6 @@ function onecall($num,$db,$dialplan) {
 	
 	if(onecall("$number",$db,$dialplan) != 0){
 	    $text = "По номеру в этой сделке уже звонил робот, это дубль";
-	    require_once 'common_note.php';
 	    exit('Уже звонили');
 	};
 
@@ -108,7 +101,6 @@ function onecall($num,$db,$dialplan) {
     fputs($oSocket, "Command: channel originate SIP/megafon/$strExten extension $id@$dialplan \r\n");
   
     
-    sleep (1);
     fputs($oSocket, "Action: Logoff\r\n\r\n");
     fclose($oSocket);
 
@@ -134,14 +126,6 @@ function insertData($phone, $data, $dialplan,$id,$db) {
     pg_close($db);
 }
 
-// Использование функции
 insertData($strExten, $citizenship,$dialplan,$id,$db);
-
-
-$nedo = 1; 
-$nedotag = "Недозвон";
-$count_calls = 5;
-$nedonum = "ПятьЗвонков";
-require_once '../patch.php';
 require_once '../note.php';
 ?>
