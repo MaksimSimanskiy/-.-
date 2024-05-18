@@ -29,11 +29,7 @@ if ($otc != "")
 {
     $middle_name = $otc;
 };
-$contractor = '';
-$car_id = '';
-$park_id = '';
-$error = '';
-$url = '';
+
 $end = "Location:../endpage.php";
 
 if ($working == 'Курьером на велосипеде/самокате')
@@ -99,58 +95,12 @@ function v4_UUID()
 $work_rule = "";
 $end = "Location:../endpage.php";
 $headers = array(
-    'X-Client-ID: taxi/park/6a3124c0d5b74e75a24d85e279bfaad6',
-    'X-API-Key: KLgMxNKIJWDtbYhAEfUXqyRRjuVeOWHiVDT',
-    'X-Park-ID: 6a3124c0d5b74e75a24d85e279bfaad6',
-    'X-Idempotency-Token: ' . v4_UUID() ,
-    'Content-Type: text/plain'
+        "X-Client-ID: $client_id",
+        "X-API-Key: $api_key",
+        "X-Park-ID: $park_id",
+        "X-Idempotency-Token: " . v4_UUID() ,
+        "Content-Type: text/plain"
 );
-$park_id = '';
-if ($working == "Водителем такси")
-{
-    $work_rule = "";
-    $end = "Location:../endpagetaxi.php";
-    //$end = "Location:ins/ИнструкцияТакси.pdf";
-    $headers = array(
-        'X-Client-ID:',
-        'X-API-Key: ',
-        'X-Park-ID:',
-        'X-Idempotency-Token: ' . v4_UUID() ,
-        'Content-Type: text/plain'
-    );
-    $park_id = '';
-};
-if ($working == "Курьером на грузовом авто")
-{
-    $work_rule = "";
-};
-if ($working == "Пешим курьером")
-{
-    $work_rule = "";
-    $end = "Location:../endpage.php";
-    $headers = array(
-        'X-Client-ID:',
-        'X-API-Key:',
-        'X-Park-ID:',
-        'X-Idempotency-Token: ' . v4_UUID() ,
-        'Content-Type: text/plain'
-    );
-    $park_id = '';
-};
-if ($working == "Курьером на велосипеде/самокате")
-{
-    $work_rule = "";
-    $end = "Location:../endpage.php";
-    $headers = array(
-        'X-Client-ID:',
-        'X-API-Key:',
-        'X-Park-ID:',
-        'X-Idempotency-Token: ' . v4_UUID() ,
-        'Content-Type: text/plain'
-    );
-    $park_id = '';
-};
-$error_message = '';
 $walk = 'https://fleet-api.taxi.yandex.net/v2/parks/contractors/walking-courier-profile';
 $avto_courier = 'https://fleet-api.taxi.yandex.net/v2/parks/contractors/auto-courier-profile';
 $taxi = 'https://fleet-api.taxi.yandex.net/v2/parks/contractors/driver-profile';
@@ -184,14 +134,6 @@ function walk_make($error_message, $city, $dateb, $first_name, $last_name, $midd
     //$err_code = json_decode($response)->code;
     $err_code = json_decode($response)->code;
     $success = json_decode($response)->contractor_profile_id;
-    if ($err_code != 400)
-    {
-        $success = "Пеший";
-    }
-    else
-    {
-        $success = $err_code;
-    }
     return $success;
 };
 
@@ -221,70 +163,7 @@ function taxi_make($error_message, $taxi_profile, $vehicle_licenses, $vehicle_sp
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
 
-    
     $contractor = json_decode($response)->vehicle_id;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
@@ -313,72 +192,7 @@ function car_make($error_message, $park_profile, $vehicle_licenses, $vehicle_spe
     curl_close($curl);
     $err_code = json_decode($response)->code;
     $message = json_decode($response)->message;
-
-    
     $contractor = json_decode($response)->vehicle_id;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
@@ -410,69 +224,6 @@ function gruz_make($error_message, $cargo, $gruz_profile, $vehicle_licenses, $ve
 
     
     $contractor = json_decode($response)->vehicle_id;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
@@ -503,69 +254,6 @@ function avto_courier_make($error_message, $car_id, $account, $order_provider, $
     $message = json_decode($response)->message;
 
     $contractor = json_decode($response)->contractor_profile_id;;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
@@ -596,69 +284,6 @@ function avto_driver_make($error_message, $car_id, $account, $order_provider, $p
     $message = json_decode($response)->message;
 
     $contractor = json_decode($response)->contractor_profile_id;;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
@@ -689,69 +314,6 @@ function moto_make($error_message, $moto_park_profile, $moto_licenses, $moto_spe
     $message = json_decode($response)->message;
 
     $contractor = json_decode($response)->vehicle_id;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
@@ -782,69 +344,6 @@ function moto_courier_make($error_message, $car_id, $account, $order_provider, $
     $message = json_decode($response)->message;
 
     $contractor = json_decode($response)->contractor_profile_id;
-    if ($err_code == "no_such_car")
-    {
-        $contractor = "no_such_car";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_car_model")
-    {
-        $contractor = "invalid_car_model";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_vin")
-    {
-        $contractor = "invalid_vin";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_year")
-    {
-        $contractor = "invalid_year";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_phone")
-    {
-        $contractor = "duplicate_phone";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "duplicate_driver_license")
-    {
-        $contractor = "duplicate_driver_license";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == "invalid_real_car_for_courier")
-    {
-        $contractor = "invalid_real_car_for_courier";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code == 400)
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
-    if ($err_code != '')
-    {
-        $contractor = "ошибка";
-        $error_message = $contractor;
-        require_once 'mail_error.php';
-
-    }
     return $contractor;
 };
 
