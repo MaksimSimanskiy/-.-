@@ -62,16 +62,7 @@ require_once 'access.php';
    return $data['account']['payment_service_id'];
   };
   function amolid($status_id,$company,$phone,$born,$name,$url,$error,$subdomain,$access_token){
-      
 
-      $custom_field_id = 548461;
-
-$custom_field_id2 = 284265;
-
-$custom_field_id3 = 548467;
-
-$pipeline_id = 6107622;
-$user_amo = 8887046;
 
 $utm_source   = 'Штатник';
 $utm_content  = $custom_field_value2;
@@ -98,14 +89,7 @@ $data = [
                                 ]
                             ]
                         ],
-                                            [
-                            "field_id" => (int) $custom_field_id,
-                            "values" => [
-                                [
-                                    "value" => $custom_field_value
-                                ]
-                            ]
-                        ],
+                                           
                         [
                             "field_id" => 284265,
                             "values" => [
@@ -138,14 +122,7 @@ $data = [
                                 ]
                             ]
                         ],
-                        [
-                            "field_id" => 1019301,
-                            "values" => [
-                                [
-                                    "value" => $custom_field_value4
-                                ]
-                            ]
-                        ]
+
                     ]
                 ]    
             ],
@@ -236,16 +213,6 @@ $code = (int) $code;
     CURLOPT_POSTFIELDS => json_encode($data),
     CURLOPT_HTTPHEADER => $headers_ya,
     ));
-    echo $resp = curl_exec($curl);
-    $resp = serialize($resp);
-    if (strpos($resp, "message") !== false) {
-    $message = "ошибка";
-    echo $message;
-    return $message;
-} else {
-    $message = "";
-     return $message;
-}
   };
     
 function execute($id_park,$api,$status_id,$company,$work_rule,$subdomain,$access_token){
@@ -290,7 +257,7 @@ function execute($id_park,$api,$status_id,$company,$work_rule,$subdomain,$access
         "query"=> [
             "park"=> [
                 "driver_profile" => [
-                    "work_rule_id" =>['e26a3cf21acfe01198d50030487e046b'] //['e26a3cf21acfe01198d50030487e046b']//656cbf2ed4e7406fa78ec2107ec9fefe
+                    "work_rule_id" => $work_rule_id
                     
                     ],
                
@@ -386,25 +353,6 @@ if (isset($data['driver_profiles']) && is_array($data['driver_profiles'])) {
     }
 }
 }
-
 };
-
-$bog = 64408686;
-$bog_name = "Богатей";
-$id_park = "";
-$api = "";
-$work_rule = "";
-execute($id_park,$api,$bog,$bog_name,$work_rule,$subdomain,$access_token);
-$agent = 64587330;
-$agent_name = "Агенты Go";
-$id_park = "";
-$api = "";
-$work_rule = "";
-execute($id_park,$api,$agent,$agent_name,$work_rule,$subdomain,$access_token);
-$cd = 64408690;
-$cd_name = "Центр доставки";
-$id_park = "";
-$api = "";
-$work_rule = "";
 execute($id_park,$api,$cd,$cd_name,$work_rule,$subdomain,$access_token);
 ?>
